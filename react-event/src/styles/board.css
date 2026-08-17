@@ -1,0 +1,164 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: #e8edf2;
+  color: #1a2a3a;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.board {
+  max-width: 960px;
+  margin: 1.5rem auto;
+  padding: 0.85rem;
+  border: 2px solid #94a3b8;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.caption {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.trail {
+  margin: 0 0 0.75rem;
+  min-height: 1.4rem;
+  font-size: 0.85rem;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.region {
+  border-radius: 10px;
+  padding: 0.7rem 0.8rem;
+}
+
+.region--header {
+  border: 2px solid #7dd3fc;
+  background: #e0f2fe;
+}
+
+.region--page {
+  border: 2px solid #fcd34d;
+  background: #fef9c3;
+}
+
+.region--list {
+  border: 2px solid #fbbf24;
+  background: #fffbeb;
+}
+
+.region--card {
+  border: 2px solid #f59e0b;
+  background: #fff;
+}
+
+.region--cart {
+  border: 2px solid #fdba74;
+  background: #ffedd5;
+}
+
+.region--checkout {
+  border: 2px solid #6ee7b7;
+  background: #ecfdf5;
+}
+
+.region--orders {
+  border: 2px solid #f0abfc;
+  background: #fdf4ff;
+}
+
+.region__title {
+  margin: 0 0 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.split {
+  display: grid;
+  gap: 0.65rem;
+}
+
+@media (min-width: 640px) {
+  .split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.header-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.card-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.slot {
+  margin: 0.35rem 0 0;
+  min-height: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.btn {
+  border: 0;
+  border-radius: 6px;
+  padding: 0.28rem 0.7rem;
+  background: #1e3a5f;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.btn:hover {
+  background: #152a45;
+}
+
+.btn-secondary {
+  background: #64748b;
+}
+
+.btn-secondary:hover {
+  background: #475569;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
