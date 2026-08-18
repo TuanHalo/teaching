@@ -1,17 +1,16 @@
 import type React from "react";
-import type { ThemeName } from "../types";
+import { useUserTheme } from "../state/UserThemeContext";
 
 interface LayoutProps {
-  theme: ThemeName;
   header: React.ReactNode;
   children: React.ReactNode;
 }
 
 export const Layout = ({
-  theme,
   header,
   children,
 }: LayoutProps): React.JSX.Element => {
+  const { theme } = useUserTheme();
   return (
     <div className="store-shell" data-theme={theme}>
       {header}
