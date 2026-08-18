@@ -2,12 +2,10 @@ import type React from "react";
 import type { CartItem, Product, ThemeName, User } from "./types";
 import { PRODUCTS } from "./data/products";
 import { Layout } from "./components/Layout";
-import { Header } from "./components/Header";
+import { Header } from "./components/Header";https://github.com/TuanHalo/teaching/pull/1/conflict?name=react-store%252Fsrc%252Fcomponents%252FHeader.tsx&ancestor_oid=99f51c041efbeb224d638b609fb5f53786c02298&base_oid=e501963f44a227f91000615e1adaf3dd6df637e2&head_oid=d1c5e88ca585851e5d2ce3a0e8a4393b4ebb085e
 import { CheckoutPage } from "./components/CheckoutPage";
 import { OrderHistoryPage } from "./components/OrderHistoryPage";
 import { ProductPage } from "./pages/ProductPage";
-import { useState } from "react";
-import { UserThemeProvider } from "./state/UserThemeContext";
 
 
 let user: User | null = null;
