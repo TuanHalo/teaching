@@ -6,8 +6,8 @@ import { Header } from "./components/Header";
 import { CheckoutPage } from "./components/CheckoutPage";
 import { OrderHistoryPage } from "./components/OrderHistoryPage";
 import { ProductPage } from "./pages/ProductPage";
+import { useState } from "react";
 
-let cartItems: CartItem[] = [];
 let user: User | null = null;
 let theme: ThemeName = "light";
 
@@ -16,43 +16,51 @@ const getCartCount = (items: CartItem[]): number => {
 };
 
 const App = (): React.JSX.Element => {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
   const handleAddToCart = (product: Product): void => {
     const existing = cartItems.find((item) => item.productId === product.id);
     if (existing) {
-      cartItems = cartItems.map((item) =>
-        item.productId === product.id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
-      return;
+        setCartItems((prev) => {
+            return prev.map((item) => 
+                item.productId === product.id
+                ? {...item, quantity: item.quantity + 1}
+                : item,
+            );
+        });
+        return;
     }
-    cartItems = [...cartItems, { productId: product.id, quantity: 1 }];
+    setCartItems((prev) => [...prev, { productId: product.id, quantity: 1 }]);
   };
 
   const handleIncrease = (productId: string): void => {
-    cartItems = cartItems.map((item) =>
-      item.productId === productId
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.productId === productId
+          ? { ...item, quantity: item.quantity + 1 }
+          : item,
+      ),
     );
   };
 
   const handleDecrease = (productId: string): void => {
-    cartItems = cartItems
-      .map((item) =>
-        item.productId === productId
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-      .filter((item) => item.quantity > 0);
+    setCartItems((prev) =>
+      prev
+        .map((item) =>
+          item.productId === productId
+            ? { ...item, quantity: item.quantity - 1 }
+            : item,
+        )
+        .filter((item) => item.quantity > 0),
+    );
   };
-
+  
   const handleRemoveItem = (productId: string): void => {
-    cartItems = cartItems.filter((item) => item.productId !== productId);
+    setCartItems((prev) => prev.filter((item) => item.productId !== productId));
   };
 
   const handleClear = (): void => {
-    cartItems = [];
+    setCartItems([]);
   };
 
   const handleLogin = (): void => {
