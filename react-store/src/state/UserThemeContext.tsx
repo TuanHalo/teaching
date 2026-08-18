@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import type React from "react";
 import type { ThemeName, User } from "../types";
 
@@ -20,31 +20,8 @@ interface UserThemeProviderProps {
 export const UserThemeProvider = ({
   children,
 }: UserThemeProviderProps): React.JSX.Element => {
-  const [user, setUser] = useState<User | null>(null);
-  const [theme, setTheme] = useState<ThemeName>("light");
-
-  const login = () => {
-    setUser({ name: "TB" });
-  };
-
-  const logout = () => {
-    setUser(null);
-  };
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
-
-  const value: UserThemeContextValue = {
-    user,
-    theme,
-    login,
-    logout,
-    toggleTheme,
-  };
-
   return (
-    <UserThemeContext.Provider value={value}>
+    <UserThemeContext.Provider value={null}>
       {children}
     </UserThemeContext.Provider>
   );

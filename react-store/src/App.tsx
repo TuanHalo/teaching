@@ -6,9 +6,8 @@ import { Header } from "./components/Header";
 import { CheckoutPage } from "./components/CheckoutPage";
 import { OrderHistoryPage } from "./components/OrderHistoryPage";
 import { ProductPage } from "./pages/ProductPage";
-import { useState } from "react";
-import { UserThemeProvider } from "./state/UserThemeContext";
 
+let cartItems: CartItem[] = [];
 let user: User | null = null;
 let theme: ThemeName = "light";
 
@@ -17,51 +16,43 @@ const getCartCount = (items: CartItem[]): number => {
 };
 
 const App = (): React.JSX.Element => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
   const handleAddToCart = (product: Product): void => {
     const existing = cartItems.find((item) => item.productId === product.id);
     if (existing) {
-      setCartItems(
-        cartItems.map((item) =>
-          item.productId === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item,
-        ),
+      cartItems = cartItems.map((item) =>
+        item.productId === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
       );
       return;
     }
-    setCartItems([...cartItems, { productId: product.id, quantity: 1 }]);
+    cartItems = [...cartItems, { productId: product.id, quantity: 1 }];
   };
 
   const handleIncrease = (productId: string): void => {
-    setCartItems(
-      cartItems.map((item) =>
-        item.productId === productId
-          ? { ...item, quantity: item.quantity + 1 }
-          : item,
-      ),
+    cartItems = cartItems.map((item) =>
+      item.productId === productId
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
     );
   };
 
   const handleDecrease = (productId: string): void => {
-    setCartItems(
-      cartItems
-        .map((item) =>
-          item.productId === productId
-            ? { ...item, quantity: item.quantity - 1 }
-            : item,
-        )
-        .filter((item) => item.quantity > 0),
-    );
+    cartItems = cartItems
+      .map((item) =>
+        item.productId === productId
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+      .filter((item) => item.quantity > 0);
   };
 
   const handleRemoveItem = (productId: string): void => {
-    setCartItems(cartItems.filter((item) => item.productId !== productId));
+    cartItems = cartItems.filter((item) => item.productId !== productId);
   };
 
   const handleClear = (): void => {
-    setCartItems([]);
+    cartItems = [];
   };
 
   const handleLogin = (): void => {
@@ -77,26 +68,33 @@ const App = (): React.JSX.Element => {
   };
 
   return (
-    <UserThemeProvider>
-      <Layout
-        theme={theme}
-        header={<Header cartCount={getCartCount(cartItems)} />}
-      >
-        <ProductPage
-          products={PRODUCTS}
-          cartItems={cartItems}
-          onAddToCart={handleAddToCart}
-          onIncrease={handleIncrease}
-          onDecrease={handleDecrease}
-          onRemoveItem={handleRemoveItem}
-          onClear={handleClear}
+    <Layout
+      theme={theme}
+      header={
+        <Header
+          cartCount={getCartCount(cartItems)}
+          user={user}
+          theme={theme}
+          onToggleTheme={handleToggleTheme}
+          onLogin={handleLogin}
+          onLogout={handleLogout}
         />
-        <div className="lower-panels">
-          <CheckoutPage user={user} items={cartItems} products={PRODUCTS} />
-          <OrderHistoryPage user={user} />
-        </div>
-      </Layout>
-    </UserThemeProvider>
+      }
+    >
+      <ProductPage
+        products={PRODUCTS}
+        cartItems={cartItems}
+        onAddToCart={handleAddToCart}
+        onIncrease={handleIncrease}
+        onDecrease={handleDecrease}
+        onRemoveItem={handleRemoveItem}
+        onClear={handleClear}
+      />
+      <div className="lower-panels">
+        <CheckoutPage user={user} items={cartItems} products={PRODUCTS} />
+        <OrderHistoryPage user={user} />
+      </div>
+    </Layout>
   );
 };
 
