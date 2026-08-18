@@ -3,6 +3,7 @@ import { ThemeName, User } from "../types";
 import { LoginBar } from "./LoginBar";
 import { ThemeToggle } from "./ThemeToggle";
 import { useUserTheme } from "../state/UserThemeContext";
+import { useUserTheme } from "../state/UserThemeContext";
 
 interface HeaderProps {
   cartCount: number;
@@ -17,8 +18,8 @@ export const Header = ({
       <h1 className="store-branch">React Store</h1>
       <div className="store-header-actions">
         <span className="cart-badge">Cart ({cartCount})</span>
-        <LoginBar user={user} onLogin={onLogin} onLogout={onLogout} />
-        <ThemeToggle theme={theme} onToggleTheme={onToggleTheme} />
+        <LoginBar user={user} onLogin={login} onLogout={logout} />
+        <ThemeToggle theme={theme} onToggleTheme={toggleTheme} />
       </div>
     </header>
   );

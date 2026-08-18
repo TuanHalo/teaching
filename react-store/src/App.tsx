@@ -19,6 +19,8 @@ const getCartCount = (items: CartItem[]): number => {
 
 const App = (): React.JSX.Element => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
   const handleAddToCart = (product: Product): void => {
     const existing = cartItems.find((item) => item.productId === product.id);
     if (existing) {
