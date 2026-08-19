@@ -8,11 +8,42 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     // Assignment 5 — fill these. Payload is productId.
-    addItem: (_state, _action: PayloadAction<string>) => {},
-    removeItem: (_state, _action: PayloadAction<string>) => {},
-    increase: (_state, _action: PayloadAction<string>) => {},
-    decrease: (_state, _action: PayloadAction<string>) => {},
-    clear: (_state) => {},
+    addItem: (state, action: PayloadAction<string>) => {
+      const existing = state.find((item) => item.productId === action.payload);
+      if (existing) {
+        existing.quantity += 1;
+        return;
+      }
+      state.push({ productId: action.payload, quantity: 1});
+    },
+
+    removeItem: (state, action: PayloadAction<string>) => {
+      const index = state.findIndex((item) => item.productId === action.payload);
+      if (index !== -1)  {
+        state.splice(index, 1);
+      }
+    },
+
+    increase: (state, action: PayloadAction<string>) => {
+      const existing = state.find((item) => item.productId === action.payload);
+      if (existing) {
+        existing.quantity += 1;
+      }
+    },
+
+    decrease: (state, action: PayloadAction<string>) => {
+      const index = state.findIndex((item) => item.productId === action.payload);
+      if (index === -1) {
+        return;
+      }
+      const item = state[index];
+      item.quantity -= 1;
+      if (item.quantity <= 0) {
+        state.splice(index, 1);
+      }
+    },
+
+    clear: () => [],
   },
 });
 
