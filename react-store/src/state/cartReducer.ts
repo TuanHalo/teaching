@@ -13,16 +13,40 @@ export const cartReducer = (
   action: CartAction
 ): CartItem[] => {
   switch (action.type) {
-    case "ADD_ITEM":
-      return state;
+    case "ADD_ITEM": {
+      const existing = state.find((item) => item.productId === action.productId);
+      if (existing) {
+        return state.map((item) =>
+          item.productId === action.productId
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+      return [...state, { productId: action.productId, quantity: 1 }]; 
+    }
+
     case "REMOVE_ITEM":
-      return state;
+      return state.filter((item) => item.productId !== action.productId);
+
     case "INCREASE":
-      return state;
+      return state.map((item) =>
+        item.productId === action.productId
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+
     case "DECREASE":
-      return state;
+      return state
+        .map((item) =>
+          item.productId === action.productId
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+        .filter((item) => item.quantity > 0);
+
     case "CLEAR":
-      return state;
+      return [];
+
     default:
       return state;
   }
