@@ -1,7 +1,8 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { CartItem } from "../types";
+import { loadCart } from "../storage/persist";
 
-const initialState: CartItem[] = [];
+const initialState: CartItem[] = loadCart();
 
 const cartSlice = createSlice({
   name: "cart",

@@ -16,6 +16,8 @@ import {
   increase,
   removeItem,
 } from "./state/cartSlice";
+// import { useEffect } from "react";
+// import { saveCart } from "./storage/persist";
 
 const getCartCount = (items: CartItem[]): number => {
   return items.reduce((sum, item) => sum + item.quantity, 0);
@@ -24,6 +26,11 @@ const getCartCount = (items: CartItem[]): number => {
 const StoreApp = (): React.JSX.Element => {
   const cartItems = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
+
+  // Assignment 6 useEffect: dispatch → store changes → component re-renders → effect runs → saves cart to local storage (indirectly)
+//   useEffect(() => {
+//     saveCart(cartItems);
+//   }, [cartItems]);
 
   const handleAddToCart = (product: Product): void => {
     dispatch(addItem(product.id));
